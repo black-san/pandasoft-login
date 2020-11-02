@@ -1,25 +1,49 @@
-import logo from './logo.svg';
+import logo from './logo.png';
 import './App.css';
+import LoginForm from './components/LoginForm';
+import ProfileView from './components/ProfileView';
+import TokenStore from './helper/TokenStore';
+import {useSelector} from 'react-redux';
+import {signIn} from './action';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+function App(props) {
+  
+  var {store} = props;
+
+  TokenStore.requestToken();
+  
+  if (localStorage.getItem("isLoggedIn") === 'true'){
+    store.dispatch(signIn())
+  }
+  
+  const isLoggedIn = useSelector(state => state.isLoggedIn);
+
+  if (isLoggedIn) {
+    return (
+      <div className="App">
+        <div>
+          <div className="LoginForm">
+            <img className="LogoImg" src={logo}></img>
+              <ProfileView store={store}/>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  else {
+    return (
+      <div className="App">
+        <div>
+          <div className="LoginForm">
+            <img className="LogoImg" src={logo}></img>
+            <div className="LoginField"><LoginForm store={store} /></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
 }
 
 export default App;
