@@ -2,6 +2,15 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Set up API
+You must change these following variables in this project for setting up API
+- src/helper/TokenStore.js: 
+  - API_ENDPOINT_TOKEN
+  - CLIENT_ID
+  - CLIENT_SECRET
+- src/action/Login.js
+  - API_ENDPOINT
+
 ## Available Scripts
 
 In the project directory, you can run:
